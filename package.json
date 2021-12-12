@@ -1,9 +1,12 @@
+
 {
   "name": "scheduler",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8001",
   "dependencies": {
-    "babel-loader":"8.0.5",
+    "axios": "^0.24.0",
+    "babel-loader": "8.0.5",
     "classnames": "^2.2.6",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
