@@ -17,7 +17,7 @@ export default function Application(props) {
     days: [],
     // you may put the line below, but will have to remove/comment hardcoded appointments variable
     appointments: {},
-    // interview: {}
+    interview: {}
   });
 
   function bookInterview(id, interview) {
@@ -31,9 +31,6 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-
-   
-
     return axios.put(`/api/appointments/${id}`, appointment)
     .then(() => {
       setState({
@@ -41,8 +38,26 @@ export default function Application(props) {
         appointments
       });
     })
+  }
 
+  function cancelInterview(id, interview) {
+    return axios.delete(`/api/appointments/${id}`)
+    .then((data) => {
+      const appointment = {
+        ...state.appointments[id],
+        interview: null
+      };
+  
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment
+      };
 
+      setState({
+        ...state,
+        appointments
+      });
+    })
   }
 
 
@@ -80,6 +95,7 @@ export default function Application(props) {
       interview={interview} 
       interviewers={getInterviewsForDay(state, state.day)}
       bookInterview={bookInterview}
+      cancelInterview={cancelInterview}
       />
 
   })
