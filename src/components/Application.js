@@ -5,87 +5,26 @@ import { useState, useEffect } from "react";
 import Appointments from "components/Appointments"
 import axios from "axios";
 import { getAppointmentsForDay, getInterviewsForDay, getInterview } from "helpers/selectors"
+import useApplicationData from "hooks/useApplicationData";
 
 
 
 //function
 
 export default function Application(props) {
-
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    // you may put the line below, but will have to remove/comment hardcoded appointments variable
-    appointments: {},
-    interview: {}
-  });
-
-  function bookInterview(id, interview) {
-    console.log(id, interview);
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-    return axios.put(`/api/appointments/${id}`, appointment)
-    .then(() => {
-      setState({
-        ...state,
-        appointments
-      });
-    })
-  }
-
-  function cancelInterview(id, interview) {
-    return axios.delete(`/api/appointments/${id}`)
-    .then((data) => {
-      const appointment = {
-        ...state.appointments[id],
-        interview: null
-      };
-  
-      const appointments = {
-        ...state.appointments,
-        [id]: appointment
-      };
-
-      setState({
-        ...state,
-        appointments
-      });
-    })
-  }
+  // Export hooks here
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview
+  } = useApplicationData();
 
 
-  const setDay = day => setState({ ...state, day });
-  // const setDays = (days) => setState((prev) => ({ ...prev, days }));
-  // const[days, setDays] = useState([]);
-
-  // const [day, setDay] = useState("Monday");
-
-  useEffect(() => {
-    Promise.all([
-      axios.get(`/api/days`),
-      axios.get(`/api/appointments`),
-      axios.get(`/api/interviewers`)
-    ]).then((all) => {
-      console.log(all[0].data)
-      console.log(all[1].data)
-      console.log(all[2].data)
-      setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }))
-    })
-
-  }, []);
-
-
-
+  //Define getAppointmentsForDay function for ease of use
   const dailyAppointments = getAppointmentsForDay(state, state.day)
- 
 
+  //Map through appointments
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview)
     return <Appointments
