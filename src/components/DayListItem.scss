@@ -5,7 +5,7 @@
   &__item {
     @include fade;
 
-    color: #b1beca;
+    color: #8395a7;
     height: 5rem;
     padding-left: 2rem;
     display: flex;
@@ -13,7 +13,7 @@
     justify-content: center;
 
     &:hover {
-      background-color: #f75050;
+      background-color: #ee5253;
       cursor: pointer;
       color: $dark-background;
     }
