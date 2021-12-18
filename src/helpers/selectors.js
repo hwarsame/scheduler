@@ -3,13 +3,13 @@ import InterviewerListItem from "components/InterviewerListItem";
 
 //getAppointmentsForDay helper function
 export function getAppointmentsForDay(state, day) {
-    const filteredDays = state.days.find((days) => days.name  === day)
-    if (!state.days.length || !filteredDays) {
-      return [];
-    }
-    else {
-      return filteredDays.appointments.map((id) => state.appointments[id])
-    }
+  const filteredDays = state.days.find((days) => days.name === day)
+  if (!state.days.length || !filteredDays) {
+    return [];
+  }
+  else {
+    return filteredDays.appointments.map((id) => state.appointments[id])
+  }
 }
 
 
@@ -18,13 +18,13 @@ export function getAppointmentsForDay(state, day) {
 export function getInterviewsForDay(state, day) {
   let arr = []
   let interviewersArr = []
-  for (let weekDay of state.days){
-    if (weekDay.name === day){
-     interviewersArr = weekDay.interviewers
+  for (let weekDay of state.days) {
+    if (weekDay.name === day) {
+      interviewersArr = weekDay.interviewers
     }
   }
   console.log('INTERVIEWERSARR', interviewersArr)
-  for (let val of interviewersArr){
+  for (let val of interviewersArr) {
     arr.push(state.interviewers[val])
   }
   console.log('ARRAY>>>>', arr)
@@ -42,11 +42,11 @@ export function getInterview(state, interview) {
     let student = interview.student
 
     return {
-      student, 
+      student,
       interviewer: state.interviewers[IdInterviewer]
     }
   }
-  
-    return null;
+
+  return null;
 
 }

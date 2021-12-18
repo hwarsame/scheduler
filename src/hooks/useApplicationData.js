@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function useApplicationData () {
+export default function useApplicationData() {
 
-// State
- const [state, setState] = useState({
+  // State
+  const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {},
@@ -25,25 +25,25 @@ export default function useApplicationData () {
       [id]: appointment
     };
     return axios.put(`/api/appointments/${id}`, appointment)
-    .then(() => { 
-      const spotUpdate = updateSpots(state, appointments)
-      setState({
-        ...state,
-        days: spotUpdate,
-        appointments
-      });
-    })
+      .then(() => {
+        const spotUpdate = updateSpots(state, appointments)
+        setState({
+          ...state,
+          days: spotUpdate,
+          appointments
+        });
+      })
   }
 
 
   // updateSpots 
 
-  const updateSpots = function(state, appointments) {  
+  const updateSpots = function (state, appointments) {
     let i;
     const day = state.days.find((day, index) => {
       if (state.day === day.name) {
-         i = index
-         return day
+        i = index
+        return day
       };
     })
     console.log('DAY::::::>>>', state.day)
@@ -52,38 +52,38 @@ export default function useApplicationData () {
     let spots = 0;
     for (let day1 of day.appointments) {
       if (appointments[day1].interview === null) {
-        spots ++
+        spots++
       }
       // console.log('SPOTS >>>>', spots)
     }
 
     const days = [...state.days]
-    console.log('STATEEEE', {...state})
+    console.log('STATEEEE', { ...state })
 
-    days[i] = {...day, spots: spots}
+    days[i] = { ...day, spots: spots }
     return days;
-};
+  };
 
   //Cancel interview
   function cancelInterview(id, interview) {
     return axios.delete(`/api/appointments/${id}`)
-    .then((data) => {
-      const appointment = {
-        ...state.appointments[id],
-        interview: null
-      };
-  
-      const appointments = {
-        ...state.appointments,
-        [id]: appointment
-      };
-      const spotUpdate = updateSpots(state, appointments)
-      setState({
-        ...state,
-        days: spotUpdate,
-        appointments
-      });
-    })
+      .then((data) => {
+        const appointment = {
+          ...state.appointments[id],
+          interview: null
+        };
+
+        const appointments = {
+          ...state.appointments,
+          [id]: appointment
+        };
+        const spotUpdate = updateSpots(state, appointments)
+        setState({
+          ...state,
+          days: spotUpdate,
+          appointments
+        });
+      })
   }
 
 
@@ -109,6 +109,6 @@ export default function useApplicationData () {
   }, []);
 
 
-  return {state, cancelInterview, bookInterview, setDay}
+  return { state, cancelInterview, bookInterview, setDay }
 
 }
