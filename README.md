@@ -19,7 +19,12 @@ and also choose their interviewer!
 
 ## A look at the interview scheduled by the student!
 
-!["Interview]()
+!["Interview](https://github.com/1BigH/lighthouse-labs-scheduler/blob/master/docs/Screen%20Shot%202021-12-18%20at%206.51.53%20PM.png?raw=true)
+
+
+## A look at cancelling the interview
+
+!["Cancel"](https://github.com/1BigH/lighthouse-labs-scheduler/blob/master/docs/Screen%20Shot%202021-12-18%20at%206.51.53%20PM.png?raw=true)
 
 
 
