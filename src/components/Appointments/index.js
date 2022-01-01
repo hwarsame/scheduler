@@ -1,5 +1,5 @@
 import React, { Fragment } from "react"
-import Header from "./header";
+import Header from "./Header";
 import Show from "./show";
 import Empty from "./empty";
 import useVisualMode from "hooks/useVisualMode";
@@ -73,7 +73,7 @@ export default function Appointment(props) {
       {mode === CONFIRM && <Confirm message={"Are you sure you want to confirm"} onConfirm={deleting} onCancel={back} />}
       {mode === EDIT && <Form interviewer={props.interview.interviewer.id} interviewers={props.interviewers} student={props.interview.student} onSave={save} onCancel={back} />}
       {mode === ERROR_SAVE && <Error message="Error Saving, Please Try gain" onClose={back} />}
-      {mode === ERROR_DELETE && <Error message="Error Deleting, Please Try Again" onClose={back} />}
+      {mode === ERROR_DELETE && <Error message="Error Deleting, Please Try Again" onClose={()=> transition(SHOW)} />}
     </article>
   );
 }

@@ -24,11 +24,10 @@ export default function Form(props) {
     }
 
     setError("");
-    setInterviewerError(null);
     props.onSave(student, interviewer);
   }
   const [error, setError] = useState("");
-  const [interviewerError, setInterviewerError] = useState(null);
+
 
   return (
     <main className="appointment__card appointment__card--create">
