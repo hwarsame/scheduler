@@ -43,8 +43,8 @@ export default function useApplicationData() {
     const day = state.days.find((day, index) => {
       if (state.day === day.name) {
         i = index
-        return day
       };
+      return day
     })
     console.log('DAY::::::>>>', state.day)
     console.log('DAY>>>', day)

@@ -1,5 +1,4 @@
-import DayListItem from "components/DayListItem";
-import InterviewerListItem from "components/InterviewerListItem";
+
 
 //getAppointmentsForDay helper function
 export function getAppointmentsForDay(state, day) {
