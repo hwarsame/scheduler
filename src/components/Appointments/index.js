@@ -42,6 +42,7 @@ export default function Appointment(props) {
   }
 
   function deleting() {
+    console.log('DELETE FUNCTION >>>>*******', props.interview )
     transition("DELETING")
     props.cancelInterview(props.id, props.interview)
       .then(() => {
@@ -58,7 +59,7 @@ export default function Appointment(props) {
       {mode === SHOW && (
         <Show
           student={props.interview.student}
-          interviewer={props.interview ? props.interview.interviewer.name : ''}
+          interviewer={props.interview ? props.interview.interviewer? props.interview.interviewer.name : '' : ''}
           onDelete={() => transition("CONFIRM")}
           onEdit={() => transition("EDIT")}
         />

@@ -14,7 +14,6 @@ export default function useApplicationData() {
 
   //BookInterview 
   function bookInterview(id, interview) {
-    console.log(id, interview);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -35,35 +34,27 @@ export default function useApplicationData() {
       })
   }
 
-
   // updateSpots 
 
   const updateSpots = function (state, appointments) {
     let i;
-    const day = state.days.find((day, index) => {
+    const currentDay = state.days.find((day, index) => {
       if (state.day === day.name) {
         i = index
+        return day
       };
-      return day
     })
-    console.log('DAY::::::>>>', state.day)
-    console.log('DAY>>>', day)
-    console.log('INDEX>>', i)
     let spots = 0;
-    for (let day1 of day.appointments) {
+    for (let day1 of currentDay.appointments) {
       if (appointments[day1].interview === null) {
         spots++
       }
-      // console.log('SPOTS >>>>', spots)
     }
 
     const days = [...state.days]
-    console.log('STATEEEE', { ...state })
-
-    days[i] = { ...day, spots: spots }
+    days[i] = { ...currentDay, spots: spots }
     return days;
   };
-
   //Cancel interview
   function cancelInterview(id, interview) {
     return axios.delete(`/api/appointments/${id}`)
@@ -72,7 +63,6 @@ export default function useApplicationData() {
           ...state.appointments[id],
           interview: null
         };
-
         const appointments = {
           ...state.appointments,
           [id]: appointment
@@ -82,15 +72,12 @@ export default function useApplicationData() {
           ...state,
           days: spotUpdate,
           appointments
-        });
+        })
       })
   }
-
-
+ 
   //Set day
   const setDay = day => setState({ ...state, day });
-
-
 
 
   //useEffect
@@ -100,14 +87,10 @@ export default function useApplicationData() {
       axios.get(`/api/appointments`),
       axios.get(`/api/interviewers`)
     ]).then((all) => {
-      console.log(all[0].data)
-      console.log(all[1].data)
-      console.log(all[2].data)
       setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }))
     })
 
   }, []);
-
 
   return { state, cancelInterview, bookInterview, setDay }
 
